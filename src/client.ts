@@ -1,4 +1,4 @@
-import { API, BaseClient, Scope } from "@sentry/core";
+import { BaseClient, Scope } from "@sentry/core";
 import { DsnLike, Event, EventHint } from "@sentry/types";
 import { getGlobalObject, logger } from "@sentry/utils";
 
@@ -45,33 +45,37 @@ export class MiniappClient extends BaseClient<MiniappBackend, MiniappOptions> {
    * @param options Configuration options for this SDK.
    */
   public constructor(options: MiniappOptions = {}) {
+    options._metadata = options._metadata || {};
+    options._metadata.sdk = options._metadata.sdk || {
+      name: SDK_NAME,
+      packages: [
+        {
+          name: "npm:@sentry/taro",
+          version: SDK_VERSION,
+        },
+      ],
+      version: SDK_VERSION,
+    };
+
     super(MiniappBackend, options);
   }
 
   /**
    * @inheritDoc
    */
-  protected _prepareEvent(event: Event, scope?: Scope, hint?: EventHint): PromiseLike<Event | null> {
+  protected _prepareEvent(
+    event: Event,
+    scope?: Scope,
+    hint?: EventHint
+  ): PromiseLike<Event | null> {
     event.platform = event.platform || "javascript";
-    event.sdk = {
-      ...event.sdk,
-      name: SDK_NAME,
-      packages: [
-        ...((event.sdk && event.sdk.packages) || []),
-        {
-          name: "npm:@sentry/miniapp",
-          version: SDK_VERSION
-        }
-      ],
-      version: SDK_VERSION
-    };
 
     return super._prepareEvent(event, scope, hint);
   }
 
   /**
    * Show a report dialog to the user to send feedback to a specific event.
-   * 向用户显示报告对话框以将反馈发送到特定事件。---> 小程序上暂时用不到&不考虑。
+   * 向用户显示报告对话框以将反馈发送到特定事件。---> 小程序上暂时用不到，不考虑。
    *
    * @param options Set individual options for the dialog
    */
@@ -101,14 +105,14 @@ export class MiniappClient extends BaseClient<MiniappBackend, MiniappOptions> {
       return;
     }
 
-    const script = document.createElement("script");
-    script.async = true;
-    script.src = new API(dsn).getReportDialogEndpoint(options);
+    // const script = document.createElement("script");
+    // script.async = true;
+    // script.src = new API(dsn).getReportDialogEndpoint(options);
 
-    if (options.onLoad) {
-      script.onload = options.onLoad;
-    }
+    // if (options.onLoad) {
+    //   script.onload = options.onLoad;
+    // }
 
-    (document.head || document.body).appendChild(script);
+    // (document.head || document.body).appendChild(script);
   }
 }

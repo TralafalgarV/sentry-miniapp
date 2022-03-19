@@ -1,16 +1,18 @@
 export {
   Breadcrumb,
+  BreadcrumbHint,
   Request,
   SdkInfo,
   Event,
+  EventHint,
+  EventStatus,
   Exception,
   Response,
   Severity,
   StackFrame,
   Stacktrace,
-  Status,
   Thread,
-  User
+  User,
 } from "@sentry/types";
 
 export {
@@ -23,14 +25,17 @@ export {
   getHubFromCarrier,
   getCurrentHub,
   Hub,
+  makeMain,
   Scope,
+  Session,
+  startTransaction,
   setContext,
   setExtra,
   setExtras,
   setTag,
   setTags,
   setUser,
-  withScope
+  withScope,
 } from "@sentry/core";
 
 export { SDK_NAME, SDK_VERSION } from "./version";
@@ -41,7 +46,7 @@ export {
   showReportDialog,
   flush,
   close,
-  wrap
+  wrap,
 } from "./sdk";
 export { MiniappOptions } from "./backend";
 export { MiniappClient, ReportDialogOptions } from "./client";
