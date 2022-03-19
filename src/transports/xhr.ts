@@ -1,5 +1,5 @@
-import { Event, Response, Status } from "@sentry/types";
-
+import { Response, SentryRequest } from "@sentry/types";
+import { SyncPromise, eventStatusFromHttpCode } from "@sentry/utils";
 import { sdk } from "../crossPlatform";
 
 import { BaseTransport } from "./base";
@@ -9,29 +9,32 @@ export class XHRTransport extends BaseTransport {
   /**
    * @inheritDoc
    */
-  public sendEvent(event: Event): PromiseLike<Response> {
+  protected _sendRequest(
+    sentryRequest: SentryRequest
+    // originalPayload: Event | Session
+  ): PromiseLike<Response> {
     const request = sdk.request || sdk.httpRequest;
 
     return this._buffer.add(
-      new Promise<Response>((resolve, reject) => {
-        // tslint:disable-next-line: no-unsafe-any
-        request({
-          url: this.url,
-          method: "POST",
-          data: JSON.stringify(event),
-          header: {
-            "content-type": "application/json"
-          },
-          success(res: { statusCode: number }): void {
-            resolve({
-              status: Status.fromHttpCode(res.statusCode)
-            });
-          },
-          fail(error: object): void {
-            reject(error);
-          }
-        });
-      })
+      () =>
+        new SyncPromise<Response>((resolve, reject) => {
+          request({
+            url: sentryRequest.url,
+            method: "POST",
+            data: sentryRequest.body,
+            header: {
+              "content-type": "application/json",
+            },
+            success(res: { statusCode: number }): void {
+              resolve({
+                status: eventStatusFromHttpCode(res.statusCode),
+              });
+            },
+            fail(error: object): void {
+              reject(error);
+            },
+          });
+        })
     );
   }
 }

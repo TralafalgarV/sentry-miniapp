@@ -44,7 +44,7 @@ export class System implements Integration {
             app, // 支付宝小程序
             appName, // 字节跳动小程序
             storage, // 支付宝小程序、 钉钉小程序
-            fontSizeSetting // 支付宝小程序、 钉钉小程序、微信小程序
+            fontSizeSetting, // 支付宝小程序、 钉钉小程序、微信小程序
           } = systemInfo;
           const [systemName, systemVersion] = system.split(" ");
 
@@ -56,11 +56,11 @@ export class System implements Integration {
                 brand,
                 battery_level: batteryLevel || currentBattery || battery,
                 model,
-                screen_dpi: pixelRatio
+                screen_dpi: pixelRatio,
               },
               os: {
                 name: systemName || system,
-                version: systemVersion || system
+                version: systemVersion || system,
               },
               extra: {
                 SDKVersion,
@@ -75,12 +75,12 @@ export class System implements Integration {
                 wifiSignal,
                 fontSizeSetting,
                 storage,
-                app: app || appName || currentAppName
-              }
-            }
+                app: app || appName || currentAppName,
+              },
+            },
           };
         } catch (e) {
-          console.warn(`sentry-miniapp get system info fail: ${e}`);
+          console.warn(`sentry-taro-miniapp get system info fail: ${e}`);
         }
       }
 

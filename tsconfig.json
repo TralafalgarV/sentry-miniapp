@@ -3,6 +3,9 @@
   "include": ["src/**/*", "test/**/*"],
   "exclude": ["./examples"],
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react",
     "outDir": "dist",
     "module": "commonjs",
     "target": "es5",

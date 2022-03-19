@@ -1,4 +1,4 @@
-import { Event } from '@sentry/types';
+import { Event } from "@sentry/types";
 import {
   addExceptionMechanism,
   addExceptionTypeValue,
@@ -8,10 +8,14 @@ import {
   isErrorEvent,
   isEvent,
   isPlainObject,
-} from '@sentry/utils';
+} from "@sentry/utils";
 
-import { eventFromPlainObject, eventFromStacktrace, prepareFramesForEvent } from './parsers';
-import { computeStackTrace } from './tracekit';
+import {
+  eventFromPlainObject,
+  eventFromStacktrace,
+  prepareFramesForEvent,
+} from "./parsers";
+import { computeStackTrace } from "./tracekit";
 
 /** JSDoc */
 export function eventFromUnknownInput(
@@ -20,25 +24,35 @@ export function eventFromUnknownInput(
   options: {
     rejection?: boolean;
     attachStacktrace?: boolean;
-  } = {},
+  } = {}
 ): Event {
   let event: Event;
 
-  if (isErrorEvent(exception as ErrorEvent) && (exception as ErrorEvent).error) {
+  if (
+    isErrorEvent(exception as ErrorEvent) &&
+    (exception as ErrorEvent).error
+  ) {
     // If it is an ErrorEvent with `error` property, extract it to get actual Error
     const errorEvent = exception as ErrorEvent;
     exception = errorEvent.error; // tslint:disable-line:no-parameter-reassignment
     event = eventFromStacktrace(computeStackTrace(exception as Error));
     return event;
   }
-  if (isDOMError(exception as DOMError) || isDOMException(exception as DOMException)) {
+  if (
+    isDOMError(exception as DOMError) ||
+    isDOMException(exception as DOMException)
+  ) {
     // If it is a DOMError or DOMException (which are legacy APIs, but still supported in some browsers)
     // then we just extract the name and message, as they don't provide anything else
     // https://developer.mozilla.org/en-US/docs/Web/API/DOMError
     // https://developer.mozilla.org/en-US/docs/Web/API/DOMException
     const domException = exception as DOMException;
-    const name = domException.name || (isDOMError(domException) ? 'DOMError' : 'DOMException');
-    const message = domException.message ? `${name}: ${domException.message}` : name;
+    const name =
+      domException.name ||
+      (isDOMError(domException) ? "DOMError" : "DOMException");
+    const message = domException.message
+      ? `${name}: ${domException.message}`
+      : name;
 
     event = eventFromString(message, syntheticException, options);
     addExceptionTypeValue(event, message);
@@ -54,7 +68,11 @@ export function eventFromUnknownInput(
     // This will allow us to group events based on top-level keys
     // which is much better than creating new group when any key/value change
     const objectException = exception as {};
-    event = eventFromPlainObject(objectException, syntheticException, options.rejection);
+    event = eventFromPlainObject(
+      objectException,
+      syntheticException,
+      options.rejection
+    );
     addExceptionMechanism(event, {
       synthetic: true,
     });
@@ -86,7 +104,7 @@ export function eventFromString(
   syntheticException?: Error,
   options: {
     attachStacktrace?: boolean;
-  } = {},
+  } = {}
 ): Event {
   const event: Event = {
     message: input,

@@ -3,7 +3,7 @@ import {
   initAndBind,
   Integrations as CoreIntegrations,
 } from "@sentry/core";
-import { SyncPromise } from "@sentry/utils";
+import { rejectedSyncPromise } from "@sentry/utils";
 
 import { MiniappOptions } from "./backend";
 import { MiniappClient, ReportDialogOptions } from "./client";
@@ -133,7 +133,7 @@ export function flush(timeout?: number): PromiseLike<boolean> {
   if (client) {
     return client.flush(timeout);
   }
-  return SyncPromise.reject(false);
+  return rejectedSyncPromise(false);
 }
 
 /**
@@ -147,7 +147,7 @@ export function close(timeout?: number): PromiseLike<boolean> {
   if (client) {
     return client.close(timeout);
   }
-  return SyncPromise.reject(false);
+  return rejectedSyncPromise(false);
 }
 
 /**

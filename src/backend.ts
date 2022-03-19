@@ -1,8 +1,8 @@
 import { BaseBackend } from "@sentry/core";
 import { Event, EventHint, Options, Severity, Transport } from "@sentry/types";
-import { addExceptionMechanism, SyncPromise } from '@sentry/utils';
+import { addExceptionMechanism, resolvedSyncPromise } from "@sentry/utils";
 
-import { eventFromString, eventFromUnknownInput } from './eventbuilder';
+import { eventFromString, eventFromUnknownInput } from "./eventbuilder";
 import { XHRTransport } from "./transports/index";
 
 /**
@@ -42,7 +42,7 @@ export class MiniappBackend extends BaseBackend<MiniappOptions> {
 
     const transportOptions = {
       ...this._options.transportOptions,
-      dsn: this._options.dsn
+      dsn: this._options.dsn,
     };
 
     if (this._options.transport) {
@@ -55,25 +55,32 @@ export class MiniappBackend extends BaseBackend<MiniappOptions> {
   /**
    * @inheritDoc
    */
-  public eventFromException(exception: any, hint?: EventHint): PromiseLike<Event> {
+  public eventFromException(
+    exception: any,
+    hint?: EventHint
+  ): PromiseLike<Event> {
     const syntheticException = (hint && hint.syntheticException) || undefined;
     const event = eventFromUnknownInput(exception, syntheticException, {
       attachStacktrace: this._options.attachStacktrace,
     });
     addExceptionMechanism(event, {
       handled: true,
-      type: 'generic',
+      type: "generic",
     });
     event.level = Severity.Error;
     if (hint && hint.event_id) {
       event.event_id = hint.event_id;
     }
-    return SyncPromise.resolve(event);
+    return resolvedSyncPromise(event);
   }
   /**
    * @inheritDoc
    */
-  public eventFromMessage(message: string, level: Severity = Severity.Info, hint?: EventHint): PromiseLike<Event> {
+  public eventFromMessage(
+    message: string,
+    level: Severity = Severity.Info,
+    hint?: EventHint
+  ): PromiseLike<Event> {
     const syntheticException = (hint && hint.syntheticException) || undefined;
     const event = eventFromString(message, syntheticException, {
       attachStacktrace: this._options.attachStacktrace,
@@ -82,6 +89,6 @@ export class MiniappBackend extends BaseBackend<MiniappOptions> {
     if (hint && hint.event_id) {
       event.event_id = hint.event_id;
     }
-    return SyncPromise.resolve(event);
+    return resolvedSyncPromise(event);
   }
 }
