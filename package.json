@@ -1,5 +1,5 @@
 {
-  "name": "@sentry/taro",
+  "name": "sentry-taro",
   "version": "1.0.0",
   "description": "用于 Taro 的 Sentry SDK",
   "repository": "https://github.com/TralafalgarV/sentry-miniapp.git",
@@ -61,6 +61,7 @@
     "@sentry/types": "6.18.2",
     "@sentry/utils": "6.18.2",
     "hoist-non-react-statics": "^3.3.2",
+    "react": "^17.0.2",
     "tslib": "^1.9.3"
   },
   "peerDependencies": {

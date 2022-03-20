@@ -45,18 +45,6 @@ export class MiniappClient extends BaseClient<MiniappBackend, MiniappOptions> {
    * @param options Configuration options for this SDK.
    */
   public constructor(options: MiniappOptions = {}) {
-    options._metadata = options._metadata || {};
-    options._metadata.sdk = options._metadata.sdk || {
-      name: SDK_NAME,
-      packages: [
-        {
-          name: "npm:@sentry/taro",
-          version: SDK_VERSION,
-        },
-      ],
-      version: SDK_VERSION,
-    };
-
     super(MiniappBackend, options);
   }
 
@@ -68,7 +56,18 @@ export class MiniappClient extends BaseClient<MiniappBackend, MiniappOptions> {
     scope?: Scope,
     hint?: EventHint
   ): PromiseLike<Event | null> {
-    event.platform = event.platform || "javascript";
+    event.platform = event.platform || "taro";
+
+    event.sdk = {
+      name: SDK_NAME,
+      packages: [
+        {
+          name: `npm:${SDK_NAME}`,
+          version: SDK_VERSION,
+        },
+      ],
+      version: SDK_VERSION,
+    };
 
     return super._prepareEvent(event, scope, hint);
   }
