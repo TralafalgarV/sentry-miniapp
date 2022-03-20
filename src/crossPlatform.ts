@@ -63,7 +63,7 @@ const getSDK = () => {
     // tslint:disable-next-line: no-unsafe-any
     currentSdk = swan;
   } else {
-    throw new Error("sentry-miniapp 暂不支持此平台");
+    throw new Error("sentry-taro-miniapp 暂不支持此平台");
   }
 
   return currentSdk;
