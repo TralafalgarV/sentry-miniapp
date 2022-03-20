@@ -162,23 +162,6 @@ npm publish
 ![Error01](docs/screenshot/sentry-error-01.png)
 ![Error02](docs/screenshot/sentry-error-02.png)
 
-## 谁在使用 sentry-miniapp
-
-### 微信小程序
-
-- 丁香医生
-- 丁香医生医生端
-- 丁香人才
-- 丁香家
-
-### 支付宝小程序
-
-- 丁香医生
-
-### 字节跳动小程序
-
-- 丁香医生
-
 ## 参考资料
 
 - [sentry-javascript](https://github.com/getsentry/sentry-javascript)
@@ -198,19 +181,3 @@ npm publish
 - [Fundebug](https://www.fundebug.com/)
 - [FrontJS](https://www.frontjs.com/home/tour)
 - [Bugout](https://bugout.testin.cn/)
-
-## 贡献
-
-欢迎通过 `issue`、`pull request`等方式贡献 `sentry-miniapp`。
-
-## 联系作者
-
-PS. 由于微信群二维码有时效性限制，想入群的同学还可以加作者微信（添加时请备注 sentry-miniapp），由作者邀请入群
-
-### sentry-miniapp 微信交流群
-
-<img src="docs/qrcode/sentry-miniapp.jpeg" alt="微信交流群二维码" width="300" height="400" />
-
-### 作者微信二维码
-
-<img src="docs/qrcode/zhiyao.jpeg" alt="作者微信二维码" width="300" height="300" />

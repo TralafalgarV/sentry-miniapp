@@ -1,9 +1,9 @@
 {
-  "name": "sentry-taro",
+  "name": "sentry-taro-miniapp",
   "version": "1.0.0",
   "description": "用于 Taro 的 Sentry SDK",
-  "repository": "https://github.com/TralafalgarV/sentry-miniapp.git",
-  "homepage": "https://github.com/TralafalgarV/sentry-miniapp",
+  "repository": "https://github.com/TralafalgarV/sentry-taro-miniapp.git",
+  "homepage": "https://github.com/TralafalgarV/sentry-taro-miniapp",
   "miniprogram": "dist",
   "main": "dist/index.js",
   "module": "esm/index.js",
