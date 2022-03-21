@@ -15,6 +15,8 @@ Fork[sentry-miniapp](https://github.com/lizhiyao/sentry-miniapp)改造而来
 - [x] 支持在 [Taro](https://taro.aotu.io/) 等第三方小程序框架中使用
 - [x] 默认上报异常发生时的路由栈
 - [ ] 完善的代码测试
+- [ ] 支持 redux 错误上报
+- [ ] 支持 webview 错误上报
 
 ## 用法
 
