@@ -1,5 +1,5 @@
 # Sentry Taro SDK
-Fork[sentry-miniapp](https://github.com/lizhiyao/sentry-miniapp)改造而来
+Fork [sentry-miniapp](https://github.com/lizhiyao/sentry-miniapp) 改造而来
 
 用于Taro小程序的 Sentry SDK
 
@@ -45,7 +45,7 @@ Fork[sentry-miniapp](https://github.com/lizhiyao/sentry-miniapp)改造而来
 3. 在 `app.js` 中引用并初始化 `Sentry`，根据实际需求设置上报到 Sentry 的元信息
 
    ```js
-   import * as Sentry from "sentry-miniapp";
+   import * as Sentry from "sentry-taro-miniapp";
 
    // init Sentry
    // init options: https://github.com/getsentry/sentry-javascript/blob/master/packages/types/src/options.ts
@@ -107,24 +107,6 @@ Fork[sentry-miniapp](https://github.com/lizhiyao/sentry-miniapp)改造而来
 # 根据 package.json 中的版本号更新 SDK 源码中的版本号
 npm run version
 
-# 构建供小程序直接引用的 sentry-miniapp.xx.min.js；在本地可直接使用开发者工具打开 examples 下具体项目进行调试
-npm run build:dist
-
-# 构建供微信小程序直接引用的 sentry-miniapp.wx.min.js
-npm run build:wx
-
-# 构建供支付宝小程序直接引用的 sentry-miniapp.my.min.js
-npm run build:my
-
-# 构建供钉钉小程序直接引用的 sentry-miniapp.dd.min.js
-npm run build:dd
-
-# 构建供字节跳动小程序直接引用的 sentry-miniapp.tt.min.js
-npm run build:tt
-
-# 构建供百度小程序直接引用的 sentry-miniapp.swan.min.js
-npm run build:swan
-
 # 构建用于发布到 npm 的 dist 资源
 npm run build
 
@@ -134,13 +116,6 @@ npm run build:esm
 # 发布到 npm
 npm publish
 ```
-
-## 效果图
-
-![Dashboard](docs/screenshot/sentry-admin.png)
-![Error00](docs/screenshot/sentry-error-00.png)
-![Error01](docs/screenshot/sentry-error-01.png)
-![Error02](docs/screenshot/sentry-error-02.png)
 
 ## 参考资料
 
