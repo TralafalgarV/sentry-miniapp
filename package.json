@@ -1,6 +1,6 @@
 {
   "name": "sentry-taro-miniapp",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "用于 Taro 的 Sentry SDK",
   "repository": "https://github.com/TralafalgarV/sentry-taro-miniapp.git",
   "homepage": "https://github.com/TralafalgarV/sentry-taro-miniapp",
@@ -35,7 +35,7 @@
     "小程序异常监控",
     "微信小程序"
   ],
-  "author": "",
+  "author": "tralafalgarv",
   "license": "BSD-3-Clause",
   "engines": {
     "node": ">=8"
