@@ -202,37 +202,4 @@ function withErrorBoundary<P extends Record<string, any>>(
   return Wrapped;
 }
 
-function withClassComponentErrorCatch(Wrap: React.ComponentClass) {
-  return class SomeComponent extends Wrap {
-    state = INITIAL_STATE;
-
-    componentDidCatch(
-      error: Error & { cause?: Error },
-      { componentStack }: React.ErrorInfo
-    ) {
-      withScope(() => {
-        // If on React version >= 17, create stack trace from componentStack param and links
-        // to to the original error using `error.cause` otherwise relies on error param for stacktrace.
-        // Linking errors requires the `LinkedErrors` integration be enabled.
-        if (isAtLeastReact17(React.version)) {
-          const errorBoundaryError = new Error(error.message);
-          errorBoundaryError.name = `React ErrorBoundary ${errorBoundaryError.name}`;
-          errorBoundaryError.stack = componentStack;
-
-          // Using the `LinkedErrors` integration to link the errors together.
-          error.cause = errorBoundaryError;
-        }
-
-        const eventId = captureException(error, {
-          contexts: { react: { componentStack } },
-        });
-
-        // componentDidCatch is used over getDerivedStateFromError
-        // so that componentStack is accessible through state.
-        this.setState({ error, componentStack, eventId });
-      });
-    }
-  };
-}
-
-export { ErrorBoundary, withErrorBoundary, withClassComponentErrorCatch };
+export { ErrorBoundary, withErrorBoundary };
